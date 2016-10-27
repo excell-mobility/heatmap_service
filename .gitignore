@@ -1,0 +1,7 @@
+# IDE-Kram
+heatmap_webservice.iml
+.idea
+.DS_Store
+
+# Springboot target files
+target
