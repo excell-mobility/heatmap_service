@@ -1,7 +1,5 @@
-# IDE-Kram
-heatmap_webservice.iml
-.idea
+# Created by .ignore support plugin (hsz.mobi)
 .DS_Store
-
-# Springboot target files
+.idea
+heatmap_webservice.iml
 target
