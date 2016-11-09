@@ -23,13 +23,11 @@ public class DatabaseService {
     public DatabaseService() {
         if (LOCAL_MODE) {
             JDBC_DRIVER = "org.postgresql.Driver";
-            this.sqlQuery = "SELECT * FROM heatmap_data WHERE " +
-                    "time = '2014-12-24 20:00:00' AND " +
-                    "lat1 = '50.9409' AND " +
-                    "lng1 = '13.763';";
+            this.sqlQuery = "SELECT * FROM heatmap_data_10 WHERE " +
+                    "time = '2014-12-24 20:00:00';";
         } else {
             JDBC_DRIVER = "com.cloudera.impala.jdbc4.Driver";
-            this.sqlQuery = "SELECT * FROM heatmap_data WHERE time='2014-12-24 18:00:00';";
+            this.sqlQuery = "SELECT * FROM heatmap_data_10 WHERE time='2014-12-24 18:00:00';";
         }
     }
 
@@ -82,6 +80,9 @@ public class DatabaseService {
 
     private Cell[] transferRequestToImpala() {
         try {
+            System.out.println("Anfrage an Impala gestartet.");
+            System.out.println("DRIVER: " + JDBC_DRIVER);
+            System.out.println("SQL: " + this.sqlQuery);
             // Datenbank-Treiber laden
             Class.forName(JDBC_DRIVER);
             // Verbindung zur Datenbank herstellen

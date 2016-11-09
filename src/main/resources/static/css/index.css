@@ -1,0 +1,44 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #map {
+    height: 100%;
+    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.sidebar-header {
+    font-family: sans-serif;
+    background-color: #551519;
+}
+
+.sidebar-tabs>ul>li.active {
+    background-color: #551519;
+}
+
+.typo {
+    font-style: normal;
+    font-family: sans-serif;
+    font-size: 11pt;
+}
+
+.desc {
+    font-style: italic;
+    font-family: sans-serif;
+    color: #999999;
+    font-size: 10pt;
+}
+
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    text-align: center;
+    z-index: 1234;
+    overflow: auto;
+    width: 800px;
+    height: 600px;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>ExCell Heatmap</title>
+
+    <!-- Einbindung von Leaflet zum Rendern der Karte -->
+    <link rel="stylesheet" href="lib/leaflet.css">
+    <script src="lib/leaflet.js"></script>
+
+    <link rel="stylesheet" href="lib/leaflet-sidebar.min.css">
+    <script src="lib/leaflet-sidebar.min.js"></script>
+
+    <link rel="stylesheet" href="lib/font-awesome.min.css">
+
+    <!-- Einbindung der Inhalte von Stamen zum Ändern des Aussehens der Karte -->
+    <script src="lib/tile.stamen.js"></script>
+
+    <!-- jQuery-Einbindung -->
+    <script src="lib/jquery-3.1.1.min.js"></script>
+
+    <!-- Einbindung eigener Layouts-->
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- Einbindung eigener Logik-->
+    <script src="js/index.js"></script>
+    <script src="js/map_handler.js"></script>
+    <script src="js/webservice_handler.js"></script>
+    <script src="js/html_controller.js"></script>
+</head>
+<body>
+
+<div id="sidebar" class="sidebar collapsed">
+    <!-- Inhalt der Tab-Bar -->
+    <div class="sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+            <li><a href="#messages" role="tab"><i class="fa fa-info-circle"></i> </a></li>
+            <li><a href="#settings" role="tab"><i class="fa fa-cogs"></i> </a> </li>
+        </ul>
+    </div>
+    <!-- Inhalt der einzelnen Tabs -->
+    <div class="sidebar-content">
+        <!-- Erster TAB: HOME-->
+        <div class="sidebar-pane" id="home">
+            <h1 class="sidebar-header">Heatmap<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <p class="typo">
+                Diese interaktive Karte zeigt die Verteilung von Fahrzeugen während eines Zeitraums.
+                Standardmäßig ist ein Zeitraum von einer Stunde vorgegeben. Dies ist die kleinste mögliche
+                Zeiteinheit. <br/><br/>
+
+                Die Karte wurde hierfür in ein Raster unterteilt, das den Stadtraum begrenzt. Die Auflösung
+                kann in den Einstellungen variiert werden. Ebenso der Zeitraum und die Ansicht zwischen
+                der <i>Dichteverteilung der Fahrzeuge</i> und der <i>Durchschnittsgeschwindigkeit</i>.<br/><br/>
+
+                Mit der Maus kann man über die einzeln eingefärbten Zellen fahren, um dann den exakten Wert
+                der jeweilen Zelle zu erfahren. Der Wert (bei der Dichteverteilung der relative, prozentuale Anteil
+                und bei der Durchschnitssgeschwindigkeit der Stundenkilometerwert) erscheint dann in einem
+                kleinen Pop-Up.<br/><br/>
+            </p>
+            <p class="desc">
+                Bitte die weiteren Hinweise im Informations-Menü betrachten.
+            </p>
+        </div>
+        <!-- Zweiter TAB: MITTEILUNGEN -->
+        <div class="sidebar-pane" id="messages">
+            <h1 class="sidebar-header">
+                Informationen
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i> </span>
+            </h1>
+            <p class="typo">
+                Bitte beachten, dass diese Webanwendung aktuell nur mit dem Google <b>Chrome</b> Browser ordentlich
+                funktioniert. Dies liegt aktuell in der Wahl der genutzten Formular-Elemente. Denn zur Auswahl
+                des Datums wird das Formular-Element "DateTime" verwendet, welches nur von Chrome und Opera unterstützt
+                wird. In Safari kann man lediglich noch eine Eingabe von Hand vornehmen.
+            </p>
+        </div>
+        <!-- Dritter TAB: EINSTELLUNGEN-->
+        <div class="sidebar-pane" id="settings">
+            <h1 class="sidebar-header">
+                Einstellungen
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i> </span>
+            </h1>
+            <div>
+                <p class="desc">
+                    Der aktuell gewählte Zeitraum. Die ausgewählte Stunde schließt immer die
+                    darauffolgenden 59 Minuten mit ein.
+                </p>
+                <input type="datetime-local" id="timestamp"/>
+            </div>
+            <hr/>
+            <div>
+                <p class="desc">
+                    Auswahl des Heatmap-Typen. Die Dichteveretilung zeigt die relative, prozentuale Verteilung
+                    der Fahrzeuge an und die Durchschnittsgeschwindigkeit wird in km/h angegeben.
+                </p>
+                <input TYPE="radio" id="radio-density" NAME="grid-type" VALUE="density">Dichteverteilung<br/>
+                <input TYPE="radio" id="radio-velocity" NAME="grid-type" VALUE="velocity">Durchschnittsgeschwindigkeit
+            </div>
+            <hr/>
+            <div>
+                <p class="desc">
+                    Auflösung des Rasters. Die Zahl gibt an, welchen Breite und Höhe eine Zelle besitzen soll,
+                    dabei ist der Wert im Koordinatensystem (WGS84) als Dezimalbruch angegeben.
+                </p>
+                <input type="radio" id="resolution-10" name="resolution" value="10">0.1<br/>
+                <input type="radio" id="resolution-20" name="resolution" value="20">0.05<br/>
+                <input type="radio" id="resolution-100" name="resolution" value="100">0.01<br/>
+                <input type="radio" id="resolution-200" name="resolution" value="200">0.005<br/>
+                <input type="radio" id="resolution-1000" name="resolution" value="1000">0.001
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="map" class="sidebar-map"></div>
+
+<div id="spinner" class="spinner" style="display:none">
+    <img id="img-spinner" src="img/spinner.gif" alt="Loading ..."/>
+</div>
+
+</body>
+</html>

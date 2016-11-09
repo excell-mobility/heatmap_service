@@ -35,7 +35,7 @@ public class HeatmapController {
         return new DatabaseService().startRequest();
     }
 
-//    @CrossOrigin
+    @CrossOrigin
     @RequestMapping(value = "/{year}/{month}/{day}/{hour}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(
@@ -52,6 +52,31 @@ public class HeatmapController {
                    @PathVariable int hour) {
         // Zusammensetzen der SQL Anfrage
         String sqlQuery = SQLQueryBuilder.getGridQuery(year, month, day, hour);
+        // Anfrage absenden und an Client zurückliefern
+        System.out.println(sqlQuery);
+        return new DatabaseService(sqlQuery).startRequest();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/{year}/{month}/{day}/{hour}/{resolution}", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(
+            value = "Provides a grid by given parameters.",
+            response = Cell.class,
+            produces = "application/json")
+    Cell[] getGrid(@ApiParam(name="year", value="Year", defaultValue="2014")
+                   @PathVariable int year,
+                   @ApiParam(name="month", value="Month", defaultValue="12")
+                   @PathVariable int month,
+                   @ApiParam(name="day", value="Day", defaultValue="24")
+                   @PathVariable int day,
+                   @ApiParam(name="hour", value="Hour xx:00 - xx:59", defaultValue="18")
+                   @PathVariable int hour,
+                   @ApiParam(name="resolution", value="10, 20, 100, 200 or 1000", defaultValue="100")
+                   @PathVariable int resolution) {
+        // Zusammensetzen der SQL Anfrage
+        String sqlQuery = SQLQueryBuilder.getGridQuery(year, month, day, hour, resolution);
+        System.out.println(sqlQuery);
         // Anfrage absenden und an Client zurückliefern
         return new DatabaseService(sqlQuery).startRequest();
     }
