@@ -10,7 +10,7 @@ window.onload = function () {
         g_webserviceURL = "http://localhost:8080/v1";
     } else {
         // g_webserviceURL = "http://141.64.5.203:44445/v1";
-        g_webserviceURL = "http://dbl43.beuth-hochschule.de/excell-heatmap-api/v1";
+        g_webserviceURL = "http://141.64.5.234/excell-heatmap-api/v1";
     }
     // Initialen Datentyp festlegen
     g_dataType = "density";

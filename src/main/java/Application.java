@@ -29,7 +29,7 @@ public class Application {
         if (DatabaseService.LOCAL_MODE) {
             host = "localhost:8080";
         } else {
-            host = "dbl43.beuth-hochschule.de/excell-heatmap-api";
+            host = "141.64.5.234/excell-heatmap-api";
         }
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("excell-heatmap-api")
