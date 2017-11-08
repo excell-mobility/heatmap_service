@@ -1,11 +1,20 @@
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
+
+import com.google.common.base.Predicates;
+
 import service.DatabaseService;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -34,8 +43,10 @@ public class Application {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("excell-heatmap-api")
                 .select()
-                //.apis(RequestHandlerSelectors.any())
-                //.paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.any()) 
+                .paths(Predicates.not(PathSelectors.regex("/error")))
+                .paths(Predicates.not(PathSelectors.regex("/health")))
+                .paths(Predicates.not(PathSelectors.regex("/health.json")))
                 .build()
                 .genericModelSubstitutes(ResponseEntity.class)
 //          .protocols(Sets.newHashSet("https"))
@@ -47,12 +58,17 @@ public class Application {
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "ExCELL Heatmap API",
-                "This API provides a heatmap for the ExCELL test area (Dresden).",
+                "This API provides a heatmap visualization for the ExCELL test area (Dresden).",
                 "Version 1.0",
                 "Use only for testing",
-                "s61811@beuth-hochschule.de",
+                new Contact(
+              		  "Felix Kunde, Stephan Pieper, Sebastian Urbanek",
+              		  "https://projekt.beuth-hochschule.de/magda/poeple",
+              		  "s61811@beuth-hochschule.de"),
                 "Apache 2",
-                "http://www.apache.org/licenses/LICENSE-2.0");
-        return apiInfo;
+                "http://www.apache.org/licenses/LICENSE-2.0",
+                new ArrayList<VendorExtension>());
+              return apiInfo;
     }
+   
 }
