@@ -58,11 +58,11 @@ public class Application {
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "ExCELL Heatmap API",
-                "This API provides a heatmap visualization for the ExCELL test area (Dresden). "
-                + "Therefore, the city of Dresden is separated into tiles "
-                + "which show the average vehicle speed and the aggregated number of the vehicles per tile. "
-                + "It is possible to select the date and additional options "
-                + "to individualize the tile output of the service.",
+                "Diese API stellt eine Heatmap Visualisierung für das ExCELL Testgebiet Dresden zur Verfügung. "
+                + "Demzufolge wird Dresden in separate Kacheln aufgeteilt, "
+                + "die die durchschnittliche Geschwindigkeit der Fahrzeuge und die aggregierte Anzahl der Fahrzeuge pro Kachel anzeigen. "
+                + "Es ist hierbei möglich das Datum und zusätzliche Optionen auszuwählen, "
+                + "um die Ausgabe der Kacheln zu individualisieren.",
                 "Version 1.0",
                 "Use only for testing",
                 new Contact(
