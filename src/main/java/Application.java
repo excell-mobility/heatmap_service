@@ -111,9 +111,9 @@ public class Application {
                 "Version 1.0",
                 "Use only for testing",
                 new Contact(
-              		  "Felix Kunde, Stephan Pieper, Sebastian Urbanek",
+              		  "Beuth Hochschule für Technik Berlin - Labor für Rechner- und Informationssysteme - MAGDa Gruppe",
               		  "https://projekt.beuth-hochschule.de/magda/poeple",
-              		  "s61811@beuth-hochschule.de"),
+              		  "spieper@beuth-hochschule.de"),
                 "Apache 2",
                 "http://www.apache.org/licenses/LICENSE-2.0",
                 new ArrayList<VendorExtension>());
