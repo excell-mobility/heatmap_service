@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,6 +25,7 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
+import springfox.documentation.spring.web.paths.RelativePathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
@@ -42,13 +45,13 @@ public class Application {
     }
 
     @Bean
-    public Docket heatmapApi() {
+    public Docket heatmapApi(ServletContext servletContext) {
         String host;
         if (DatabaseService.LOCAL_MODE) {
             host = "localhost:8080";
         } else {
 //            host = "141.64.5.234/excell-heatmap-api";
-            host = "dlr-integration.minglabs.com/api/v1/service-request/heatmapservice";
+            host = "dlr-integration.minglabs.com";
         }
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("excell-heatmap-api")
@@ -64,7 +67,12 @@ public class Application {
                 .securitySchemes(Lists.newArrayList(apiKey()))
                 .securityContexts(Lists.newArrayList(securityContext()))
                 .apiInfo(apiInfo())
-                ;
+                .pathProvider(new RelativePathProvider(servletContext) {
+                    @Override
+                    public String getApplicationBasePath() {
+                        return "/api/v1/service-request/heatmapservice";
+                    }
+                });
     }
     
 	private ApiKey apiKey() {
@@ -80,10 +88,7 @@ public class Application {
 
     private List<SecurityReference> defaultAuth() {
     	List<SecurityReference> ls = new ArrayList<>();
-    	AuthorizationScope authorizationScope
-    		= new AuthorizationScope("global", "accessEverything");
-    	AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-    	authorizationScopes[0] = authorizationScope;
+    	AuthorizationScope[] authorizationScopes = new AuthorizationScope[0];
     	SecurityReference s = new SecurityReference("api_key", authorizationScopes);
     	ls.add(s);
     	return ls;
@@ -93,15 +98,16 @@ public class Application {
 	public SecurityConfiguration security() {
 		return new SecurityConfiguration(null, null, null, null, "Token", ApiKeyVehicle.HEADER, "Authorization", ",");
 	}
-
+	
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "ExCELL Heatmap API",
-                "Diese API stellt eine Heatmap Visualisierung für das ExCELL Testgebiet Dresden zur Verfügung. "
-                + "Demzufolge wird Dresden in separate Kacheln aufgeteilt, "
-                + "die die durchschnittliche Geschwindigkeit der Fahrzeuge und die aggregierte Anzahl der Fahrzeuge pro Kachel anzeigen. "
-                + "Es ist hierbei möglich das Datum und zusätzliche Optionen auszuwählen, "
-                + "um die Ausgabe der Kacheln zu individualisieren.",
+                "Diese API stellt das Gerüst (JSON) für eine Kachel-basierte Heatmap Visualisierung für das ExCELL Testgebiet Dresden zur Verfügung. "
+                + "Die Kacheln zeigen die durchschnittliche Geschwindigkeit und die aggregierte Anzahl der Fahrzeuge. "
+                + "Es ist hierbei möglich das Datum und zusätzliche Optionen auszuwählen, um die Ausgabe der Kacheln zu individualisieren.\n\n"
+                + "This API provides a tiled set of attributes (JSON) to create a heatmap visualization for the ExCELL test area - the city of Dresden. "
+                + "The tiles present an aggregated view on the average speed and count of tracked vehicles. "
+                + "The service allows for changing the date and the size of the tiles.\n",
                 "Version 1.0",
                 "Use only for testing",
                 new Contact(
