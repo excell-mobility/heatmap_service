@@ -108,7 +108,7 @@ public class Application {
                 + "This API provides a tiled set of attributes (JSON) to create a heatmap visualization for the ExCELL test area - the city of Dresden. "
                 + "The tiles present an aggregated view on the average speed and count of tracked vehicles. "
                 + "The service allows for changing the date and the size of the tiles.\n",
-                "Version 1.0",
+                "1.0",
                 "Use only for testing",
                 new Contact(
               		  "Beuth Hochschule für Technik Berlin - Labor für Rechner- und Informationssysteme - MAGDa Gruppe",
