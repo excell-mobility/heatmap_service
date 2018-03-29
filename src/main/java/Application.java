@@ -3,7 +3,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +49,6 @@ public class Application {
         if (DatabaseService.LOCAL_MODE) {
             host = "localhost:8080";
         } else {
-//            host = "141.64.5.234/excell-heatmap-api";
             host = "dlr-integration.minglabs.com";
         }
         return new Docket(DocumentationType.SWAGGER_2)
@@ -114,8 +112,8 @@ public class Application {
               		  "Beuth Hochschule für Technik Berlin - Labor für Rechner- und Informationssysteme - MAGDa Gruppe",
               		  "https://projekt.beuth-hochschule.de/magda/poeple",
               		  "spieper@beuth-hochschule.de"),
-                "Apache 2",
-                "http://www.apache.org/licenses/LICENSE-2.0",
+                "Link to source code",
+                "https://github.com/excell-mobility/heatmap_service",
                 new ArrayList<VendorExtension>());
               return apiInfo;
     }
