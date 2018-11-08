@@ -49,7 +49,7 @@ public class Application {
         if (DatabaseService.LOCAL_MODE) {
             host = "localhost:8080";
         } else {
-            host = "dlr-integration.minglabs.com";
+            host = "excell-mobility.de";
         }
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("excell-heatmap-api")
@@ -68,7 +68,7 @@ public class Application {
                 .pathProvider(new RelativePathProvider(servletContext) {
                     @Override
                     public String getApplicationBasePath() {
-                        return "/api/v1/service-request/heatmapservice";
+                        return "/integration/api/v1/service-request/heatmapservice";
                     }
                 });
     }
